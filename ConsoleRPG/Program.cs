@@ -12,6 +12,7 @@ namespace ConsoleRPG
             string NAme = Console.ReadLine().Trim();
             Console.WriteLine("Welcome {0}", NAme);
             _player.Name = NAme;
+            World.ListLocations();
 
             Console.ReadLine();
         }
