@@ -20,9 +20,9 @@ namespace ConsoleRPG
 
         private static void PopulateLocations()
         {
-            Location home = new Location(LOCATION_ID_HOME, "Home", "you sit by a fireplace on a comfy chair.");
-            Location forestPath = new Location(LOCATION_ID_FOREST_PATH, "Forest Path", "a wooded path with lots of ferns");
-            Location lab = new Location(LOCATION_ID_LAB, "Lab", "a lab with lots of beakers and experiments");
+            Location home = new Location(LOCATION_ID_HOME, "Home", "You sit by a fireplace on a comfy chair.");
+            Location forestPath = new Location(LOCATION_ID_FOREST_PATH, "Forest Path", "A wooded path with lots of ferns");
+            Location lab = new Location(LOCATION_ID_LAB, "Lab", "A lab with lots of beakers and experiments");
 
             home.LocationToNorth = forestPath;
             forestPath.LocationToeast = lab;
@@ -36,9 +36,22 @@ namespace ConsoleRPG
 
         }
 
+        public static Location LocationByID(int id)
+        {
+            foreach (Location loc in Locations)
+            {
+                if (loc.ID == id)
+                {
+                    return loc;
+                }
+            }
+            return null;
+        }
+
+
         public static void ListLocations()
         {
-            Console.WriteLine("These are the locations in world: ");
+            Console.WriteLine("\n\nThese are the locations in the world: ");
             foreach(Location loc in Locations)
             {
                 Console.WriteLine("\t{0}", loc.Name);
