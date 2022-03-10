@@ -21,8 +21,8 @@ namespace ConsoleRPG
         private static void PopulateLocations()
         {
             Location home = new Location(LOCATION_ID_HOME, "Home", "You sit by a fireplace on a comfy chair.");
-            Location forestPath = new Location(LOCATION_ID_FOREST_PATH, "Forest Path", "A wooded path with lots of ferns");
-            Location lab = new Location(LOCATION_ID_LAB, "Lab", "A lab with lots of beakers and experiments");
+            Location forestPath = new Location(LOCATION_ID_FOREST_PATH, "A Forest Path", "A wooded path with lots of ferns");
+            Location lab = new Location(LOCATION_ID_LAB, "The Lab", "A lab with lots of beakers and experiments");
 
             home.LocationToNorth = forestPath;
             forestPath.LocationToeast = lab;
