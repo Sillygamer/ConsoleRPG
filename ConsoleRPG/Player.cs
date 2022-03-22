@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleRPG
 {
-    public class Player
+    public class Player: Creature
     {
         public string Name { set; get; }
         public Location CurrentLocation { set; get; }
