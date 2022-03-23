@@ -24,5 +24,17 @@ namespace ConsoleRPG
             RewardItem = rewardItem;
             QuestWins = questWins;
         }
+
+        public Quests(int id, string name, string description, int rewardXP, int rewardGold)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            RewardXP = rewardXP;
+            RewardGold = rewardGold;
+            QuestWins = new List<QuestWin>();
+            
+        }
     }
 }
+

@@ -6,8 +6,26 @@ namespace ConsoleRPG
 {
     public class Player: Creature
     {
-        public string Name { set; get; }
-        public Location CurrentLocation { set; get; }
+        public string Name;
+        public int Gold;
+        public int XPPoints;
+        public int Level;
+        public Location CurrentLocation;
+        public List<Inventory> Inventorry;
+        public List<PlayerQuests> Quests;
+
+        public Player(int currentHitPoints, int maxHitPoints, 
+            string name, int gold, int xPPoints, int level)
+            :base (currentHitPoints, maxHitPoints)
+        {
+            Name = name;
+            Gold = gold;
+            XPPoints = xPPoints;
+            Level = level;
+            Inventorry = new List<Inventory>();
+            Quests = new List<PlayerQuests>();
+        }
+        public Player() { }
 
         public void MoveTo(Location loc)
         {
