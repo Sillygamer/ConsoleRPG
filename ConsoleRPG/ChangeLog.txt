@@ -1,0 +1,11 @@
+﻿Proposed changes
++ added changelog
++ debug
++ Stats
++ Inventory
++ random number
++ where am i
++ shortcut navigation
++ location requirement
+
+V 0.0.3 completed on 3/29/22 at 1:28pm

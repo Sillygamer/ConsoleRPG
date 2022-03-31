@@ -29,6 +29,24 @@ namespace ConsoleRPG
 
         public void MoveTo(Location loc)
         {
+            if (loc.ItemRequiredToEnter != null)
+            {
+                bool playerHasRequireditem = false;
+                foreach(Inventory ii in this.Inventorry)
+                {
+                    if(ii.Details.Id == loc.ItemRequiredToEnter.Id)
+                    {
+                        playerHasRequireditem = true;
+                        break;
+                    }
+                }
+                if (!playerHasRequireditem)
+                {
+                    Console.WriteLine("You must have a {0} to enter", loc.ItemRequiredToEnter.Name);
+                    return;
+                }
+            }
+
             CurrentLocation = loc;
         }
 
@@ -37,6 +55,7 @@ namespace ConsoleRPG
             if (CurrentLocation.LocationToNorth != null)
             {
                 MoveTo(CurrentLocation.LocationToNorth);
+                Program.DislayCurrentLocation();
             }
             else
             {
@@ -48,6 +67,7 @@ namespace ConsoleRPG
             if (CurrentLocation.LocationToSouth != null)
             {
                 MoveTo(CurrentLocation.LocationToSouth);
+                Program.DislayCurrentLocation();
             }
             else
             {
@@ -59,6 +79,7 @@ namespace ConsoleRPG
             if (CurrentLocation.LocationToeast != null)
             {
                 MoveTo(CurrentLocation.LocationToeast);
+                Program.DislayCurrentLocation();
             }
             else
             {
@@ -70,6 +91,7 @@ namespace ConsoleRPG
             if (CurrentLocation.LocationToWest != null)
             {
                 MoveTo(CurrentLocation.LocationToWest);
+                Program.DislayCurrentLocation();
             }
             else
             {

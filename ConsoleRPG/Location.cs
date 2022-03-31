@@ -24,6 +24,7 @@ namespace ConsoleRPG
             ID = iD;
             Name = name;
             Description = description;
+            ItemRequiredToEnter = itemRequiredToEnter;
         }
 
 
