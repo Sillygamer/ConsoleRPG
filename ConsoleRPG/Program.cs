@@ -112,7 +112,7 @@ namespace ConsoleRPG
                 {
                     while (true)
                     {
-                        Console.Write("> ");
+                        Console.Write("Developer command> ");
                         string userImput = Console.ReadLine().Trim();
                         if (string.IsNullOrWhiteSpace(userImput))
                         {
@@ -122,6 +122,7 @@ namespace ConsoleRPG
 
                         if (cleanedInput == "exit" || cleanedInput == "quit")
                         {
+                            Console.WriteLine("Exited cheatmode.");
                             break;
                         }
                         else if (cleanedInput.Contains("give"))
