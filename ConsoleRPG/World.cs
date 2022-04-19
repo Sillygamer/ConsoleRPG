@@ -44,6 +44,7 @@ namespace ConsoleRPG
         public const int LOCATION_ID_FARM_FIELD = 7;
         public const int LOCATION_ID_BRIDGE = 8;
         public const int LOCATION_ID_SPIDER_FIELD = 9;
+        public const int LOCATION_ID_MAGIC_TREE = 10;
 
         static World()
         {
@@ -93,7 +94,7 @@ namespace ConsoleRPG
                 new Quests(
                     QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
                     "Clear the alchemist's garden",
-                    "Kill rats in the alchemist's garden and bring back 3 rat tails. \nYou will receive a healing potion and 10 gold pieces.", 20, 10);
+                    "Kill rats in the alchemist's garden and bring back 3 rat tails.", 20, 10);
 
             clearAlchemistGarden.QuestWins.Add(new QuestWin(ItemByID(ITEM_ID_RAT_TAIL), 3));
 
@@ -103,7 +104,7 @@ namespace ConsoleRPG
                 new Quests(
                     QUEST_ID_CLEAR_FARMERS_FIELD,
                     "Clear the farmer's field",
-                    "Kill snakes in the farmer's field and bring back 3 snake fangs. \nYou will receive an adventurer's pass and 20 gold pieces.", 20, 20);
+                    "Kill snakes in the farmer's field and bring back 3 snake fangs." , 20, 20);
 
             clearFarmersField.QuestWins.Add(new QuestWin(ItemByID(ITEM_ID_SNAKE_FANG), 3));
 
@@ -139,6 +140,8 @@ namespace ConsoleRPG
             Location spiderField = new Location(LOCATION_ID_SPIDER_FIELD, "Forest", "You see spider webs covering covering the trees in this forest.");
             spiderField.MonsterHere = MonsterByID(MONSTER_ID_GIANT_SPIDER);
 
+            Location magicTree = new Location(LOCATION_ID_MAGIC_TREE, "Magic Tree", "You feel the energy pulsing from the tree.");
+
             // Link the locations together
             home.LocationToNorth = townSquare;
 
@@ -149,11 +152,13 @@ namespace ConsoleRPG
 
             farmhouse.LocationToeast = townSquare;
             farmhouse.LocationToWest = farmersField;
+            farmhouse.LocationToNorth = magicTree;
 
             farmersField.LocationToeast = farmhouse;
 
             alchemistHut.LocationToSouth = townSquare;
             alchemistHut.LocationToNorth = alchemistsGarden;
+            alchemistHut.LocationToWest = magicTree;
 
             alchemistsGarden.LocationToSouth = alchemistHut;
 
@@ -164,6 +169,9 @@ namespace ConsoleRPG
             bridge.LocationToeast = spiderField;
 
             spiderField.LocationToWest = bridge;
+
+            magicTree.LocationToeast = alchemistHut;
+            magicTree.LocationToSouth = farmhouse;
 
             // Add the locations to the static list
             Locations.Add(home);

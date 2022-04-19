@@ -9,3 +9,8 @@
 + location requirement
 
 V 0.0.3 completed on 3/29/22 at 1:28pm
+
+proposed Changes for v0.0.4
++ healing each move
++ add quests to the system
++ monster detection

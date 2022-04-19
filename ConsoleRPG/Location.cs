@@ -12,6 +12,7 @@ namespace ConsoleRPG
         public Item ItemRequiredToEnter;
         public Quests QuestAvailable;
         public Monster MonsterHere;
+        public bool IsHealing;
         public Location LocationToNorth;
         public Location LocationToSouth;
         public Location LocationToeast;
@@ -19,7 +20,7 @@ namespace ConsoleRPG
 
         public Location(int iD, string name, string description,
             Item itemRequiredToEnter = null, Quests questAvailable = null,
-            Monster monsterHere = null)
+            Monster monsterHere = null, bool isHealing = false)
         {
             ID = iD;
             Name = name;
