@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 //Andrea Compton 2022
 namespace ConsoleRPG
 {
@@ -53,7 +54,7 @@ namespace ConsoleRPG
             else if (input.Contains("look") || input == "l")
             {
                 // display current location
-                DislayCurrentLocation();
+                DislayCurrentLocation(_player);
             }
             else if (input.Contains("north") || input == "n")
             {
@@ -86,7 +87,7 @@ namespace ConsoleRPG
                 }
                 else
                 {
-                    Console.WriteLine("sorry wrong code");
+                    Console.WriteLine("Self destruct in 3.. 2.. 1..");
                 }
             }
             else if (input.Contains("inventory") || input == "i")
@@ -101,7 +102,7 @@ namespace ConsoleRPG
             {
                 if (_player.Quests.Count == 0)
                 {
-                    Console.WriteLine("You have no quests right now");
+                    Console.WriteLine("You can't make a quest from thin air");
                 }
                 else
                 {
@@ -180,7 +181,7 @@ namespace ConsoleRPG
                                 }
                                 else
                                 {
-                                    Console.WriteLine("More options coming soon!!!");
+                                    Console.WriteLine("Are you trying to make your own potion?");
                                 }
                             }
                             else if (give == "rat tail")
@@ -257,27 +258,75 @@ namespace ConsoleRPG
                             }
                             else
                             {
-                                Console.WriteLine("More options coming soon!!!");
+                                Console.WriteLine("Are you trying to make your own item?");
                             }//end of else
 
                         }//end of give
                         else if (cleanedInput == "heal")
                         {
                             _player.CurrentHitPoints = _player.MaxHitPoints;
-                            Console.WriteLine("you have been healed");
+                            Console.WriteLine("You are healed now get on with your life.");
                         }
                     }//end of while
 
                 }//end of code
                 else if (code != "A2314rAinbOw11")
                 {
-                    Console.WriteLine("sorry wrong code");
+                    Console.WriteLine("Self destruct in 3.. 2.. 1..");
                 }
             }//end of cheat mode
+            else if (input.Contains("attack"))
+            {
+                if(_player.CurrentLocation.MonsterHere == null)
+                {
+                    Console.WriteLine("Are you trying to attack air? There is nothing there!");
+                }
+                else
+                {
+                    if(_player.CurrentWeapon == null)
+                    {
+                        Console.WriteLine("You can't attack with your bare fists!!!");
+                    }
+                    else
+                    {
+                        _player.UseWeapon(_player.CurrentWeapon);
+                    }
+                }
+            }else if(input.StartsWith("equip "))
+            {
+                _player.UpdateWeapons();
+                string inputWeaponName = input.Substring(6).Trim();
+                if (string.IsNullOrEmpty(inputWeaponName))
+                {
+                    Console.WriteLine("You can't equip air!");
+                }
+                else
+                {
+                    Weapon weaponToEquip = _player.Weapons.SingleOrDefault(x => x.Name.ToLower() == inputWeaponName || x.PlName.ToLower() == inputWeaponName);
+
+                    if (weaponToEquip == null)
+                    {
+                        Console.WriteLine("You can't make a weapon up!!");
+                    }
+                    else
+                    {
+                        _player.CurrentWeapon = weaponToEquip;
+                        Console.WriteLine("Equiped your {0}. Hope you don't die.", _player.CurrentWeapon.Name);
+                    }
+                }
+            }else if(input == "weapons")
+            {
+                _player.UpdateWeapons();
+                Console.WriteLine("List of Weapons");
+                foreach (Weapon w in _player.Weapons)
+                {
+                    Console.WriteLine("\t{0}", w.Name);
+                }
+            }
             else
             {
                 //anything else
-                Console.WriteLine("I don't understand. Sorry!");
+                Console.WriteLine("What language is that?!");
             }
             
             }//end of parse

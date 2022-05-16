@@ -13,6 +13,8 @@ namespace ConsoleRPG
         public Location CurrentLocation;
         public List<Inventory> Inventorry;
         public List<PlayerQuests> Quests;
+        public Weapon CurrentWeapon;
+        public List<Weapon> Weapons = new List<Weapon>();
 
         public Player(int currentHitPoints, int maxHitPoints, 
             string name, int gold, int xPPoints, int level)
@@ -82,7 +84,7 @@ namespace ConsoleRPG
             if (CurrentLocation.LocationToeast != null)
             {
                 MoveTo(CurrentLocation.LocationToeast);
-                Program.DislayCurrentLocation();
+                Program.DislayCurrentLocation(this);
             }
             else
             {
@@ -94,7 +96,7 @@ namespace ConsoleRPG
             if (CurrentLocation.LocationToWest != null)
             {
                 MoveTo(CurrentLocation.LocationToWest);
-                Program.DislayCurrentLocation();
+                Program.DislayCurrentLocation(this);
             }
             else
             {
@@ -207,6 +209,26 @@ namespace ConsoleRPG
                     pq.IsCompleted = true;
 
                     return; // We found the quest, and marked it complete, so get out of this function
+                }
+            }
+        }//end of quests
+
+        //weapon work
+        public void UseWeapon(Weapon weapon)
+        {
+            Console.WriteLine("-Fight-");
+        }
+        public void UpdateWeapons()
+        {
+            Weapons.Clear();
+            foreach(Inventory inventory in this.Inventorry)
+            {
+                if(inventory.Details is Weapon)
+                {
+                    if(inventory.Quantity > 0)
+                    {
+                        Weapons.Add((Weapon)inventory.Details);
+                    }
                 }
             }
         }

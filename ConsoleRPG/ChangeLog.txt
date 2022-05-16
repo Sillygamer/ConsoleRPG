@@ -14,3 +14,19 @@ proposed Changes for v0.0.4
 + healing each move
 + add quests to the system
 + monster detection
+
+v 0.0.4 Completed on 4/12/22 at 1:28
+
+proposed Changes for v 0.0.5
++ Weapon equipping
+- Attack Engine
+- Clean up
+- finish help system
+
+v 0.0.5 Completed on
+
+proposed Changes for v 0.0.6
+- healing with potions
+- Magic
+- talk for quests
+- other
