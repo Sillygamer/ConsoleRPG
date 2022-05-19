@@ -158,7 +158,6 @@ namespace ConsoleRPG
 
             alchemistHut.LocationToSouth = townSquare;
             alchemistHut.LocationToNorth = alchemistsGarden;
-            alchemistHut.LocationToWest = magicTree;
 
             alchemistsGarden.LocationToSouth = alchemistHut;
 
@@ -170,7 +169,6 @@ namespace ConsoleRPG
 
             spiderField.LocationToWest = bridge;
 
-            magicTree.LocationToeast = alchemistHut;
             magicTree.LocationToSouth = farmhouse;
 
             // Add the locations to the static list
@@ -183,6 +181,7 @@ namespace ConsoleRPG
             Locations.Add(farmersField);
             Locations.Add(bridge);
             Locations.Add(spiderField);
+            Locations.Add(magicTree);
         }
 
         public static Item ItemByID(int id)

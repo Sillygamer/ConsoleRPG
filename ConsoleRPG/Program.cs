@@ -49,7 +49,7 @@ namespace ConsoleRPG
             if (input.Contains("help") || input == "h")
             {
                 //help
-                Console.WriteLine("Help is coming later...stay tuned.");
+                Console.WriteLine("Im not your helper, go figure it out and don't die.");
             }
             else if (input.Contains("look") || input == "l")
             {
@@ -275,7 +275,7 @@ namespace ConsoleRPG
                     Console.WriteLine("Self destruct in 3.. 2.. 1..");
                 }
             }//end of cheat mode
-            else if (input.Contains("attack"))
+            else if (input.Contains("attack") || input == "a")
             {
                 if(_player.CurrentLocation.MonsterHere == null)
                 {

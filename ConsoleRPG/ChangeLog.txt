@@ -19,8 +19,8 @@ v 0.0.4 Completed on 4/12/22 at 1:28
 
 proposed Changes for v 0.0.5
 + Weapon equipping
-- Attack Engine
-- Clean up
++ Attack Engine
++ Clean up
 - finish help system
 
 v 0.0.5 Completed on
@@ -28,5 +28,6 @@ v 0.0.5 Completed on
 proposed Changes for v 0.0.6
 - healing with potions
 - Magic
+- only a certain number of monsters appear
 - talk for quests
 - other
