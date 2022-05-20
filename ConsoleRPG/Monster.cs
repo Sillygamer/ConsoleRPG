@@ -10,12 +10,13 @@ namespace ConsoleRPG
         public int Id;
         public int MaxDamage;
         public int MinDamage;
+        public int HitRate;
         public int RewardXP;
         public int RewardGold;
         public List<Loot> LootTable;
 
         public Monster(int currentHitPoints, int maxHitPoints, string name,
-            int id, int maxDamage, int minDamage, int rewardXP, int rewardGold)
+            int id, int maxDamage, int minDamage, int rewardXP, int rewardGold, int hitRate)
             :base (currentHitPoints, maxHitPoints)
         {
             Name = name;
@@ -24,6 +25,7 @@ namespace ConsoleRPG
             MinDamage = minDamage;
             RewardXP = rewardXP;
             RewardGold = rewardGold;
+            HitRate = hitRate;
             LootTable = new List<Loot>();
         }
     }

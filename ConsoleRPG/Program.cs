@@ -49,7 +49,12 @@ namespace ConsoleRPG
             if (input.Contains("help") || input == "h")
             {
                 //help
-                Console.WriteLine("Im not your helper, go figure it out and don't die.");
+                Console.WriteLine("\nYou can move 'north', 'south', 'east', or 'west' ('n', 's', 'e', 'w')." +
+                    "\nUse 'a' or 'attack' to  hit your opponent." +
+                    "\nSay 'equip (weapon name)' to equip a weapon." +
+                    "\nSay 'l' or 'look' to see your surroundings." +
+                    "\nSay 'i' to see your inventory." +
+                    "\nSay 'stats' to see currnt info.");
             }
             else if (input.Contains("look") || input == "l")
             {
@@ -314,7 +319,33 @@ namespace ConsoleRPG
                         Console.WriteLine("Equiped your {0}. Hope you don't die.", _player.CurrentWeapon.Name);
                     }
                 }
-            }else if(input == "weapons")
+            }
+            else if (input.StartsWith("use "))
+            {
+                string inputItemName = input.Substring(4).Trim();
+                if (string.IsNullOrEmpty(inputItemName))
+                {
+                    Console.WriteLine("You can't do that!");
+                }
+                else
+                {
+                    Inventory ItemToUse = _player.Inventorry.SingleOrDefault(x => x.Details.Name.ToLower() == inputItemName || x.Details.PlName.ToLower() == inputItemName);
+
+                    if (ItemToUse == null)
+                    {
+                        Console.WriteLine("You can't make an item up!!");
+                    }
+                    else if(inputItemName == "Healing potion")
+                    {
+                        _player.CurrentHitPoints + 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Can't use that!");
+                    }
+                }
+            }
+            else if(input == "weapons")
             {
                 _player.UpdateWeapons();
                 Console.WriteLine("List of Weapons");

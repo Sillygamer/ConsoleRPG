@@ -222,7 +222,38 @@ namespace ConsoleRPG
             Weapon currentWeapon = weapon;
             string fightMessage = "";
 
-            // Determine the amount of damage to do to the monster
+            //determine if hitting
+            int MissRate = RandomNumberGenerator.NumberBetween(1, _currentMonster.HitRate);
+
+            if(MissRate <= 4)
+            {
+                Console.WriteLine("You missed!");
+                // Monster is still alive
+
+                // Determine the amount of damage the monster does to the player
+                int damageToPlayer = RandomNumberGenerator.NumberBetween(0, _currentMonster.MaxDamage);
+
+                // Display message
+                fightMessage += "The " + _currentMonster.Name + " did " + damageToPlayer.ToString() + " points of damage." + Environment.NewLine;
+
+                // Subtract damage from player
+                CurrentHitPoints -= damageToPlayer;
+
+                Console.WriteLine(fightMessage);
+
+                if (CurrentHitPoints <= 0)
+                {
+                    // Display message
+                    fightMessage += "The " + _currentMonster.Name + " killed you." + Environment.NewLine;
+                    Console.WriteLine(fightMessage);
+
+                    // Move player to "Home"
+                    MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+                }
+            }
+            else
+            {
+ // Determine the amount of damage to do to the monster
             int damageToMonster = RandomNumberGenerator.NumberBetween(currentWeapon.MinDamage, currentWeapon.MaxDamage);
 
             // Apply the damage to the monster's CurrentHitPoints
@@ -321,6 +352,8 @@ namespace ConsoleRPG
                     MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                 }
             }
+            }
+           
 
         }
         public void UpdateWeapons()

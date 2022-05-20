@@ -21,13 +21,15 @@ proposed Changes for v 0.0.5
 + Weapon equipping
 + Attack Engine
 + Clean up
-- finish help system
++ finish help system
 
-v 0.0.5 Completed on
+v 0.0.5 Completed on 5/20/22 at 11:40
 
 proposed Changes for v 0.0.6
 - healing with potions
 - Magic
 - only a certain number of monsters appear
 - talk for quests
-- other
+- unique attack dialogue
+- shop?
++ chance to miss

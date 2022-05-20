@@ -6,7 +6,7 @@ namespace ConsoleRPG
 {
     public static class GameEngine
     {
-        public static string Version = "0.0.5";
+        public static string Version = "0.0.6";
         public static Monster _currentMonster;
         public static void Initialize()
         {

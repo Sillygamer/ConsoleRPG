@@ -70,16 +70,16 @@ namespace ConsoleRPG
 
         private static void PopulateMonsters()
         {
-            Monster rat = new Monster(3, 3, "Rat", MONSTER_ID_RAT, 5, 0, 3, 10);
+            Monster rat = new Monster(3, 3, "Rat", MONSTER_ID_RAT, 5, 0, 3, 10, 10);
             rat.LootTable.Add(new Loot(ItemByID(ITEM_ID_RAT_TAIL), 75, false));
             rat.LootTable.Add(new Loot(ItemByID(ITEM_ID_PIECE_OF_FUR), 75, true));
 
-            Monster snake = new Monster(3, 3, "Snake", MONSTER_ID_SNAKE, 5, 0, 3, 10);
+            Monster snake = new Monster(3, 3, "Snake", MONSTER_ID_SNAKE, 5, 0, 3, 10, 8);
             snake.LootTable.Add(new Loot(ItemByID(ITEM_ID_SNAKE_FANG), 75, false));
             snake.LootTable.Add(new Loot(ItemByID(ITEM_ID_SNAKESKIN), 75, true));
             snake.LootTable.Add(new Loot(ItemByID(ITEM_ID_CLUB), 75, true));
 
-            Monster giantSpider = new Monster(10, 10, "Giant spider", MONSTER_ID_GIANT_SPIDER, 20, 0, 5, 40);
+            Monster giantSpider = new Monster(10, 10, "Giant spider", MONSTER_ID_GIANT_SPIDER, 20, 0, 5, 40, 6);
             giantSpider.LootTable.Add(new Loot(ItemByID(ITEM_ID_SPIDER_FANG), 75, true));
             giantSpider.LootTable.Add(new Loot(ItemByID(ITEM_ID_SPIDER_SILK), 25, false));
 
