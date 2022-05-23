@@ -8,7 +8,7 @@ namespace ConsoleRPG
     {
         public int AmountToHeal;
 
-        public Potion(int id, string name, string plName, int amountToHeal):base(id, name, plName)
+        public Potion(int id, string name, string plName, int buyGold, int sellGold, int amountToHeal):base(id, name, plName, buyGold, sellGold)
         {
             AmountToHeal = amountToHeal;
         }

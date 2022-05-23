@@ -120,7 +120,7 @@ namespace ConsoleRPG
                 Monster standardMonster = World.MonsterByID(newLocation.MonsterHere.Id);
                 _currentMonster = new Monster(standardMonster.CurrentHitPoints, standardMonster.MaxHitPoints, standardMonster.Name,
                     standardMonster.Id, standardMonster.MaxDamage, standardMonster.MinDamage, 
-                    standardMonster.RewardXP, standardMonster.RewardGold);
+                    standardMonster.RewardXP, standardMonster.RewardGold, standardMonster.HitRate);
 
                 foreach(Loot loot in standardMonster.LootTable)
                 {

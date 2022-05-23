@@ -15,6 +15,7 @@ namespace ConsoleRPG
         public List<PlayerQuests> Quests;
         public Weapon CurrentWeapon;
         public List<Weapon> Weapons = new List<Weapon>();
+        public List<Potion>Potions = new List<Potion>();
 
         public Player(int currentHitPoints, int maxHitPoints, 
             string name, int gold, int xPPoints, int level)
@@ -50,7 +51,7 @@ namespace ConsoleRPG
             }
 
             CurrentLocation = loc;
-            GameEngine.QuestProcessor(this, loc);
+
             GameEngine.MonsterProcessor(this, loc);
             GameEngine.Heal(this, loc);
         }
@@ -366,6 +367,20 @@ namespace ConsoleRPG
                     if(inventory.Quantity > 0)
                     {
                         Weapons.Add((Weapon)inventory.Details);
+                    }
+                }
+            }
+        }
+        public void UpdatePotions()
+        {
+             Potions.Clear();
+            foreach (Inventory inventory in this.Inventorry)
+            {
+                if (inventory.Details is Potion)
+                {
+                    if (inventory.Quantity > 0)
+                    {
+                        Potions.Add((Potion)inventory.Details);
                     }
                 }
             }

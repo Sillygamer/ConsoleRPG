@@ -14,6 +14,7 @@ namespace ConsoleRPG
         public static readonly List<Monster> Monsters = new List<Monster>();
         public static readonly List<Quests> Quests = new List<Quests>();
         public static readonly List<Location> Locations = new List<Location>();
+        public static List<Item> shopItems = Items = new List<Item>();
 
 
 
@@ -56,30 +57,30 @@ namespace ConsoleRPG
 
         private static void PopulateItems()
         {
-            Items.Add(new Weapon(ITEM_ID_RUSTY_SWORD, "Rusty sword", "Rusty swords", 0, 5));
-            Items.Add(new Item(ITEM_ID_RAT_TAIL, "Rat tail", "Rat tails"));
-            Items.Add(new Item(ITEM_ID_PIECE_OF_FUR, "Piece of fur", "Pieces of fur"));
-            Items.Add(new Item(ITEM_ID_SNAKE_FANG, "Snake fang", "Snake fangs"));
-            Items.Add(new Item(ITEM_ID_SNAKESKIN, "Snakeskin", "Snakeskins"));
-            Items.Add(new Weapon(ITEM_ID_CLUB, "Club", "Clubs", 3, 10));
-            Items.Add(new Potion(ITEM_ID_HEALING_POTION, "Healing potion", "Healing potions", 5));
-            Items.Add(new Item(ITEM_ID_SPIDER_FANG, "Spider fang", "Spider fangs"));
-            Items.Add(new Item(ITEM_ID_SPIDER_SILK, "Spider silk", "Spider silks"));
-            Items.Add(new Item(ITEM_ID_ADVENTURER_PASS, "Adventurer pass", "Adventurer passes"));
+            Items.Add(new Weapon(ITEM_ID_RUSTY_SWORD, "Rusty sword", "Rusty swords", 5, 3, 5, 1));
+            Items.Add(new Item(ITEM_ID_RAT_TAIL, "Rat tail", "Rat tails", 3, 2));
+            Items.Add(new Item(ITEM_ID_PIECE_OF_FUR, "Piece of fur", "Pieces of fur", 5, 3));
+            Items.Add(new Item(ITEM_ID_SNAKE_FANG, "Snake fang", "Snake fangs", 6, 3));
+            Items.Add(new Item(ITEM_ID_SNAKESKIN, "Snakeskin", "Snakeskins", 7, 4));
+            Items.Add(new Weapon(ITEM_ID_CLUB, "Club", "Clubs", 10, 4, 10, 3));
+            Items.Add(new Potion(ITEM_ID_HEALING_POTION, "Healing potion", "Healing potions", 10, 6, 5));
+            Items.Add(new Item(ITEM_ID_SPIDER_FANG, "Spider fang", "Spider fangs", 8, 4));
+            Items.Add(new Item(ITEM_ID_SPIDER_SILK, "Spider silk", "Spider silks", 5, 3));
+            Items.Add(new Item(ITEM_ID_ADVENTURER_PASS, "Adventurer pass", "Adventurer passes", 20, 5));
         }
 
         private static void PopulateMonsters()
         {
-            Monster rat = new Monster(3, 3, "Rat", MONSTER_ID_RAT, 5, 0, 3, 10, 10);
+            Monster rat = new Monster(3, 3, "Rat", MONSTER_ID_RAT, 5, 2, 3, 10, 10);
             rat.LootTable.Add(new Loot(ItemByID(ITEM_ID_RAT_TAIL), 75, false));
             rat.LootTable.Add(new Loot(ItemByID(ITEM_ID_PIECE_OF_FUR), 75, true));
 
-            Monster snake = new Monster(3, 3, "Snake", MONSTER_ID_SNAKE, 5, 0, 3, 10, 8);
+            Monster snake = new Monster(3, 3, "Snake", MONSTER_ID_SNAKE, 5, 2, 3, 10, 8);
             snake.LootTable.Add(new Loot(ItemByID(ITEM_ID_SNAKE_FANG), 75, false));
             snake.LootTable.Add(new Loot(ItemByID(ITEM_ID_SNAKESKIN), 75, true));
             snake.LootTable.Add(new Loot(ItemByID(ITEM_ID_CLUB), 75, true));
 
-            Monster giantSpider = new Monster(10, 10, "Giant spider", MONSTER_ID_GIANT_SPIDER, 20, 0, 5, 40, 6);
+            Monster giantSpider = new Monster(10, 10, "Giant spider", MONSTER_ID_GIANT_SPIDER, 20, 5, 5, 40, 6);
             giantSpider.LootTable.Add(new Loot(ItemByID(ITEM_ID_SPIDER_FANG), 75, true));
             giantSpider.LootTable.Add(new Loot(ItemByID(ITEM_ID_SPIDER_SILK), 25, false));
 

@@ -9,7 +9,7 @@ namespace ConsoleRPG
         public int MaxDamage;
         public int MinDamage;
 
-        public Weapon(int id, string name, string plName, int maxDamage, int minDamage):base(id, name, plName)
+        public Weapon(int id, string name, string plName, int buyGold, int sellGold, int maxDamage, int minDamage):base(id, name, plName, buyGold, sellGold)
         {
             MaxDamage = maxDamage;
             MinDamage = minDamage;

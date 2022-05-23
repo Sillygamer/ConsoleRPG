@@ -320,24 +320,37 @@ namespace ConsoleRPG
                     }
                 }
             }
-            else if (input.StartsWith("use "))
+            else if (input.StartsWith("drink "))
             {
-                string inputItemName = input.Substring(4).Trim();
+                _player.UpdatePotions();
+                string inputItemName = input.Substring(6).Trim();
                 if (string.IsNullOrEmpty(inputItemName))
                 {
-                    Console.WriteLine("You can't do that!");
+                    Console.WriteLine("You can't drink air!");
                 }
                 else
                 {
-                    Inventory ItemToUse = _player.Inventorry.SingleOrDefault(x => x.Details.Name.ToLower() == inputItemName || x.Details.PlName.ToLower() == inputItemName);
-
+                    Potion ItemToUse = _player.Potions.SingleOrDefault(x => x.Name.ToLower() == inputItemName || x.PlName.ToLower() == inputItemName);
+                    Inventory Potion = _player.Inventorry.SingleOrDefault(x => x.Details.Name.ToLower() == inputItemName || x.Details.PlName.ToLower() == inputItemName);
                     if (ItemToUse == null)
                     {
-                        Console.WriteLine("You can't make an item up!!");
+                        Console.WriteLine("You can't make a potion up!!");
                     }
                     else if(inputItemName == "Healing potion")
                     {
-                        _player.CurrentHitPoints + 
+                        if(_player.CurrentHitPoints == _player.MaxHitPoints)
+                        {
+                            Console.WriteLine("You already have maximum health!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("you have healed {0} hit points", ItemToUse.AmountToHeal);
+
+                            _player.CurrentHitPoints += ItemToUse.AmountToHeal;
+                            _player.Inventorry.Remove(Potion);
+                            _player.Potions.Remove(ItemToUse);
+                        }
+                        
                     }
                     else
                     {
@@ -352,6 +365,27 @@ namespace ConsoleRPG
                 foreach (Weapon w in _player.Weapons)
                 {
                     Console.WriteLine("\t{0}", w.Name);
+                }
+            }
+            else if(input == "talk")
+            {
+                if (_player.CurrentLocation.QuestAvailable != null)
+                {
+                    Console.WriteLine("would you like to talk about quests?");
+                    String option = Console.ReadLine().Trim().ToLower();
+                    if(option == "y" || option == "yes")
+                    {
+                        GameEngine.QuestProcessor(_player, _player.CurrentLocation);
+                    }
+                    else if(option == "n" || option == "no")
+                    {
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Its a yes or no question");
+                    }
+            
                 }
             }
             else
