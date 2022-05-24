@@ -17,10 +17,11 @@ namespace ConsoleRPG
         public Location LocationToSouth;
         public Location LocationToeast;
         public Location LocationToWest;
+        public Store StoreHere;
 
         public Location(int iD, string name, string description,
             Item itemRequiredToEnter = null, Quests questAvailable = null,
-            Monster monsterHere = null, bool isHealing = false)
+            Monster monsterHere = null, bool isHealing = false, Store storeHere = null)
         {
             ID = iD;
             Name = name;

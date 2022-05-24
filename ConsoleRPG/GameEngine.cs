@@ -110,6 +110,20 @@ namespace ConsoleRPG
     
         } //QuestProcessor
 
+        public static void Stores(Player _player, Location location)
+        {
+            string storeMessage;
+
+            if(location.StoreHere != null)
+            {
+                if(location.Name == "Town square")
+                {
+
+                }
+            }
+        }
+
+
         public static void MonsterProcessor(Player _player, Location newLocation)
         {
             string monstermessage = "";

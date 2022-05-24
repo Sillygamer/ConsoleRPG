@@ -27,10 +27,17 @@ v 0.0.5 Completed on 5/20/22 at 11:40
 
 proposed Changes for v 0.0.6
 + healing with potions
-- Magic?
 - only a certain number of monsters appear
 + talk for quests
-- unique attack dialogue
 - shop
 - Respawn monster statue?
 + chance to miss
+- more shortcuts
+- unique quest lines
+
+v 0.0.6 Completed on 5/24/22 at 11:22
+
+proposed Changes for v 0.0.7
+- unique attack dialogue
+- Magic?
+-lose and find sword?

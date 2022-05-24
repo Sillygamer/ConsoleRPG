@@ -14,9 +14,7 @@ namespace ConsoleRPG
         public static readonly List<Monster> Monsters = new List<Monster>();
         public static readonly List<Quests> Quests = new List<Quests>();
         public static readonly List<Location> Locations = new List<Location>();
-        public static List<Item> shopItems = Items = new List<Item>();
-
-
+        public static readonly List<Store> Store = new List<Store>();
 
         public const int ITEM_ID_RUSTY_SWORD = 1;
         public const int ITEM_ID_RAT_TAIL = 2;
@@ -35,6 +33,11 @@ namespace ConsoleRPG
 
         public const int QUEST_ID_CLEAR_ALCHEMIST_GARDEN = 1;
         public const int QUEST_ID_CLEAR_FARMERS_FIELD = 2;
+
+        public const int STORE_ID_WEAPONS = 1;
+        public const int STORE_ID_POTIONS = 2;
+        public const int STORE_ID_MAGIC = 3;
+        public const int STORE_ID_ITEMS = 4;
 
         public const int LOCATION_ID_HOME = 1;
         public const int LOCATION_ID_TOWN_SQUARE = 2;
@@ -55,6 +58,8 @@ namespace ConsoleRPG
             PopulateLocations();
         }
 
+       
+
         private static void PopulateItems()
         {
             Items.Add(new Weapon(ITEM_ID_RUSTY_SWORD, "Rusty sword", "Rusty swords", 5, 3, 5, 1));
@@ -66,7 +71,7 @@ namespace ConsoleRPG
             Items.Add(new Potion(ITEM_ID_HEALING_POTION, "Healing potion", "Healing potions", 10, 6, 5));
             Items.Add(new Item(ITEM_ID_SPIDER_FANG, "Spider fang", "Spider fangs", 8, 4));
             Items.Add(new Item(ITEM_ID_SPIDER_SILK, "Spider silk", "Spider silks", 5, 3));
-            Items.Add(new Item(ITEM_ID_ADVENTURER_PASS, "Adventurer pass", "Adventurer passes", 20, 5));
+            Items.Add(new Item(ITEM_ID_ADVENTURER_PASS, "Adventurer pass", "Adventurer passes", 200, 50));
         }
 
         private static void PopulateMonsters()
@@ -115,12 +120,42 @@ namespace ConsoleRPG
             Quests.Add(clearFarmersField);
         }
 
+        private static void PopulateStores()
+        {
+            Store WeaponsStore =
+                new Store(STORE_ID_WEAPONS, "Weapon Store", "A store to buy new weapons or sell old ones", null);
+            WeaponsStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_CLUB), 1));
+            WeaponsStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_RUSTY_SWORD), 1));
+
+            Store PotionsStore =
+                new Store(STORE_ID_POTIONS, "Potion store", "The alchemist will sell you potions", null);
+            PotionsStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_HEALING_POTION), 5));
+
+            Store MagicStore =
+                new Store(STORE_ID_POTIONS, "Potion store", "The alchemist will sell you potions", null);
+ 
+
+            Store ItemStore =
+                new Store(STORE_ID_POTIONS, "Potion store", "The alchemist will sell you potions", null);
+           ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_ADVENTURER_PASS), 1));
+           ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_PIECE_OF_FUR), 5));
+           ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_RAT_TAIL), 4));
+           ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_SNAKESKIN), 3));
+           ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_SNAKE_FANG), 4));
+           ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_SPIDER_FANG), 4));
+           ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_SPIDER_SILK), 5));
+        }
+
         private static void PopulateLocations()
         {
             // Create each location
             Location home = new Location(LOCATION_ID_HOME, "Home", "Your house. You really need to clean up the place.");
 
             Location townSquare = new Location(LOCATION_ID_TOWN_SQUARE, "Town square", "You see a fountain.");
+            townSquare.StoreHere = StoreByID(STORE_ID_ITEMS);
+            townSquare.StoreHere = StoreByID(STORE_ID_MAGIC);
+            townSquare.StoreHere = StoreByID(STORE_ID_POTIONS);
+            townSquare.StoreHere = StoreByID(STORE_ID_WEAPONS);
 
             Location alchemistHut = new Location(LOCATION_ID_ALCHEMIST_HUT, "Alchemist's hut", "There are many strange plants on the shelves.");
             alchemistHut.QuestAvailable = QuestByID(QUEST_ID_CLEAR_ALCHEMIST_GARDEN);
@@ -236,7 +271,18 @@ namespace ConsoleRPG
 
             return null;
         }
+        public static Store StoreByID(int id)
+        {
+            foreach (Store store in Store)
+            {
+                if (store.Id == id)
+                {
+                    return store;
+                }
+            }
 
+            return null;
+        }
         public static void ListLocations()
         {
             Console.WriteLine("These are locations in the World:");
