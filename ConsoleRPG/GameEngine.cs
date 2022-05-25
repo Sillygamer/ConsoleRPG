@@ -112,12 +112,50 @@ namespace ConsoleRPG
 
         public static void Stores(Player _player, Location location)
         {
-            string storeMessage;
+            string storeMessage = "";
 
             if(location.StoreHere != null)
             {
                 if(location.Name == "Town square")
                 {
+                    storeMessage += "\n1. weapon store";
+                    storeMessage += "\n2. Potion Store";
+                    storeMessage += "\n3. Magic Store";
+                    storeMessage += "\n4. Item store";
+                    Console.WriteLine(storeMessage);
+                    Console.WriteLine("Which store would you like to go to?");
+                    string storename = Console.ReadLine().Trim();
+                    if(storename == "1")
+                    {
+                        location.StoreHere = World.StoreByID(1);
+
+                    }
+                    else if (storename == "2")
+                    {
+                        location.StoreHere = World.StoreByID(2);
+                    }
+                    else if (storename == "3")
+                    {
+                        location.StoreHere = World.StoreByID(3);
+                    }
+                    else if (storename == "4")
+                    {
+                        location.StoreHere = World.StoreByID(4);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please choose a number to go to");
+                    }//end of change stores
+                    while (true)
+                    {
+                        string store = "";
+
+                        store += "\n 1. Buy \n2. Sell \n3. exit";
+                        store += "\n What would you like to do?";
+                        string answer = Console.ReadLine().Trim();
+
+
+                    }
 
                 }
             }
@@ -156,7 +194,9 @@ namespace ConsoleRPG
                 Console.WriteLine("You have been healed");
             }
         }
-    }
 
+  
+    }
+  
 
 }
