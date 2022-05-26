@@ -373,7 +373,7 @@ namespace ConsoleRPG
                     {
                         Console.WriteLine("You can't make a potion up!!");
                     }
-                    else if (inputItemName == "Healing potion")
+                    else if (ItemToUse.AmountToHeal >= 1)
                     {
                         if (_player.CurrentHitPoints == _player.MaxHitPoints)
                         {

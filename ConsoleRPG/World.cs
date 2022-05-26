@@ -126,20 +126,20 @@ namespace ConsoleRPG
         private static void PopulateStores()
         {
             Store WeaponsStore =
-                new Store(STORE_ID_WEAPONS, "Weapon Store", "A store to buy new weapons or sell old ones", null);
+                new Store(STORE_ID_WEAPONS, "Weapon Store", "A store to buy new weapons or sell old ones");
             WeaponsStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_CLUB), 1));
             WeaponsStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_RUSTY_SWORD), 1));
 
             Store PotionsStore =
-                new Store(STORE_ID_POTIONS, "Potion store", "The alchemist will sell you potions", null);
+                new Store(STORE_ID_POTIONS, "Potion store", "The alchemist will sell you potions");
             PotionsStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_HEALING_POTION), 5));
 
             Store MagicStore =
-                new Store(STORE_ID_POTIONS, "Magic Store", "Magical Items for every need", null);
+                new Store(STORE_ID_POTIONS, "Magic Store", "Magical Items for every need");
             MagicStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_MONSTER_SPAWNER), 10));
 
             Store ItemStore =
-                new Store(STORE_ID_POTIONS, "Items store", "The alchemist will sell you potions", null);
+                new Store(STORE_ID_POTIONS, "Items store", "The alchemist will sell you potions");
            ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_ADVENTURER_PASS), 1));
            ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_PIECE_OF_FUR), 5));
            ItemStore.storeItems.Add(new StoreItems(ItemByID(ITEM_ID_RAT_TAIL), 4));
@@ -188,6 +188,7 @@ namespace ConsoleRPG
 
 
             Location magicTree = new Location(LOCATION_ID_MAGIC_TREE, "Magic Tree", "You feel the energy pulsing from the tree.");
+            magicTree.IsHealing = true;
 
             // Link the locations together
             home.LocationToNorth = townSquare;
