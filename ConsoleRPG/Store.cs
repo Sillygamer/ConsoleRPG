@@ -19,5 +19,12 @@ namespace ConsoleRPG
             this.storeItems = storeItems;
         }
 
+        public Store(int id, string name, string description)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            storeItems = new List<StoreItems>();
+        }
     }
 }

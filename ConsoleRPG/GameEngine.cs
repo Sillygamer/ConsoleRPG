@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ConsoleRPG
@@ -21,17 +22,17 @@ namespace ConsoleRPG
             World.ListItems();
             World.ListMonsters();
             World.ListQuests();
-            if(_currentMonster != null)
+            if (_currentMonster != null)
             {
-             Console.WriteLine("Current Monster: {0}", _currentMonster.Name);
+                Console.WriteLine("Current Monster: {0}", _currentMonster.Name);
             }
             else
             {
                 Console.WriteLine("There are no current monsters.");
             }
-            
+
         }
-       //quests
+        //quests
         public static void QuestProcessor(Player _player, Location newLocation)
         {
             string questMessage;
@@ -107,16 +108,16 @@ namespace ConsoleRPG
                 }
             }
 
-    
+
         } //QuestProcessor
 
         public static void Stores(Player _player, Location location)
         {
             string storeMessage = "";
 
-            if(location.StoreHere != null)
+            if (location.Name == "Town square")
             {
-                if(location.Name == "Town square")
+                while (true)
                 {
                     storeMessage += "\n1. weapon store";
                     storeMessage += "\n2. Potion Store";
@@ -125,7 +126,7 @@ namespace ConsoleRPG
                     Console.WriteLine(storeMessage);
                     Console.WriteLine("Which store would you like to go to?");
                     string storename = Console.ReadLine().Trim();
-                    if(storename == "1")
+                    if (storename == "1")
                     {
                         location.StoreHere = World.StoreByID(1);
 
@@ -142,24 +143,109 @@ namespace ConsoleRPG
                     {
                         location.StoreHere = World.StoreByID(4);
                     }
+                    else if (storename == "exit")
+                    {
+                        break;
+                    }
                     else
                     {
                         Console.WriteLine("Please choose a number to go to");
                     }//end of change stores
-                    while (true)
-                    {
-                        string store = "";
 
-                        store += "\n 1. Buy \n2. Sell \n3. exit";
-                        store += "\n What would you like to do?";
-                        string answer = Console.ReadLine().Trim();
+                    string store = "";
+
+                    store += "\n 1. Buy \n2. Sell \n3. exit";
+                    Console.WriteLine(store);
+                    Console.WriteLine("\n What would you like to do?");
+                    string answer = Console.ReadLine().Trim();
+                    if (answer == "1")
+                    {
+                        while (true)
+                        {
+                            foreach (StoreItems si in location.StoreHere.storeItems)
+                            {
+                                Console.WriteLine("\n{0} : {1}", si.Details.Name, si.Quantity);
+                                Console.WriteLine("\n\tprice: {1}", si.Details.BuyGold);
+                            }
+                            Console.WriteLine("\nWhat would you like to buy");
+                            string buying = Console.ReadLine().Trim();
+                            if (buying == "exit")
+                            {
+                                break;
+                            }
+                            StoreItems buyingItem = location.StoreHere.storeItems.SingleOrDefault(x => x.Details.Name.ToLower() == buying || x.Details.PlName.ToLower() == buying);
+                            if (buyingItem == null)
+                            {
+                                Console.WriteLine("you cant make an item up");
+                            }
+                            else
+                            {
+                                Console.WriteLine("How Many?");
+                                string number = Console.ReadLine().Trim();
+
+                                int result = Int32.Parse(number);
+                                Inventory stuff = new Inventory(World.ItemByID(buyingItem.Details.Id), result);
+                                _player.Inventorry.Add(stuff);
+                                buyingItem.Quantity -= result;
+                                _player.Gold -= buyingItem.Details.BuyGold * result;
+                                Console.WriteLine("{0} Bought", buyingItem.Details.Name);
+                            }
+
+
+
+                        }
+                    }
+                    else if (answer == "2")
+                    {
+                        while (true)
+                        {
+                            foreach (Inventory ii in _player.Inventorry)
+                            {
+                                Console.WriteLine("\n{0} : {1}", ii.Details.Name, ii.Quantity);
+                                Console.WriteLine("\n\tselling price: {1}", ii.Details.SellGold);
+                            }
+                            Console.WriteLine("\nWhat would you like to sell");
+                            string selling = Console.ReadLine().Trim();
+                            if (selling == "exit")
+                            {
+                                break;
+                            }
+                            Inventory sellingItem = _player.Inventorry.SingleOrDefault(x => x.Details.Name.ToLower() == selling || x.Details.PlName.ToLower() == selling);
+                            if (sellingItem == null)
+                            {
+                                Console.WriteLine("you cant make an item up");
+                            }
+                            else
+                            {
+                                Console.WriteLine("How Many?");
+                                string number = Console.ReadLine().Trim();
+
+                                int result = Int32.Parse(number);
+
+
+
+                                sellingItem.Quantity -= result;
+                                if (sellingItem.Quantity == 0)
+                                {
+                                    _player.Inventorry.Remove(sellingItem);
+                                }
+                                _player.Gold += sellingItem.Details.SellGold * result;
+                                Console.WriteLine("{0} sold", sellingItem.Details.Name);
+                            }
+                        }
 
 
                     }
+                    else if (answer == "3")
+                    {
+                        break;
+                    }
 
                 }
+
             }
         }
+
 
 
         public static void MonsterProcessor(Player _player, Location newLocation)
@@ -171,10 +257,10 @@ namespace ConsoleRPG
                 Console.WriteLine(monstermessage);
                 Monster standardMonster = World.MonsterByID(newLocation.MonsterHere.Id);
                 _currentMonster = new Monster(standardMonster.CurrentHitPoints, standardMonster.MaxHitPoints, standardMonster.Name,
-                    standardMonster.Id, standardMonster.MaxDamage, standardMonster.MinDamage, 
+                    standardMonster.Id, standardMonster.MaxDamage, standardMonster.MinDamage,
                     standardMonster.RewardXP, standardMonster.RewardGold, standardMonster.HitRate);
 
-                foreach(Loot loot in standardMonster.LootTable)
+                foreach (Loot loot in standardMonster.LootTable)
                 {
                     _currentMonster.LootTable.Add(loot);
                 }
@@ -184,19 +270,59 @@ namespace ConsoleRPG
                 _currentMonster = null;
             }
         }// end of monster
-    
+
 
         public static void Heal(Player _player, Location newLocation)
         {
-            if(newLocation.IsHealing == true)
+            if (newLocation.IsHealing == true)
             {
                 _player.CurrentHitPoints = _player.MaxHitPoints;
                 Console.WriteLine("You have been healed");
             }
         }
 
-  
-    }
+        public static void UseSpawner(Player _player, Location location)
+        {
+            if (location.Name == "Alchemist's garden")
+            {
+                location.MonsterNumber = 5;
+                location.MonsterHere = World.MonsterByID(World.MONSTER_ID_RAT);
+
+            }
+            else if (location.Name == "Farmer's field")
+            {
+                location.MonsterNumber = 6;
+                location.MonsterHere = World.MonsterByID(World.MONSTER_ID_SNAKE);
+            }
+            else if (location.Name == "Forest")
+            {
+                location.MonsterNumber = 7;
+                location.MonsterHere = World.MonsterByID(World.MONSTER_ID_GIANT_SPIDER);
+            }
+            else
+            {
+                int monsterType = RandomNumberGenerator.NumberBetween(1, 3);
+                if (monsterType == 1)
+                {
+                    location.MonsterNumber = RandomNumberGenerator.NumberBetween(1, 10);
+                    location.MonsterHere = World.MonsterByID(World.MONSTER_ID_RAT);
+                }
+                else if (monsterType == 2)
+                {
+                    location.MonsterNumber = RandomNumberGenerator.NumberBetween(1, 10);
+                    location.MonsterHere = World.MonsterByID(World.MONSTER_ID_SNAKE);
+                }
+                else
+                {
+                    location.MonsterNumber = RandomNumberGenerator.NumberBetween(1, 10);
+                    location.MonsterHere = World.MonsterByID(World.MONSTER_ID_GIANT_SPIDER);
+                }
+            }
+        }
+    }  
+}
+
+
   
 
-}
+

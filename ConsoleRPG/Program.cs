@@ -54,7 +54,8 @@ namespace ConsoleRPG
                     "\nSay 'equip (weapon name)' to equip a weapon." +
                     "\nSay 'l' or 'look' to see your surroundings." +
                     "\nSay 'i' to see your inventory." +
-                    "\nSay 'stats' to see currnt info.");
+                    "\nSay 'stats' to see currnt info." +
+                    "\nSay 'talk' to start quests and shop");
             }
             else if (input.Contains("look") || input == "l")
             {
@@ -261,6 +262,14 @@ namespace ConsoleRPG
                                 _player.Inventorry.Add(spidersilk);
                                 Console.WriteLine("Given spider silk");
                             }
+                            else if (give == "Gold")
+                            {
+                                Console.WriteLine("How Much?");
+                                string Number = Console.ReadLine().Trim().ToLower();
+                                int x = Int32.Parse(Number);
+                                _player.Gold += x;
+                                Console.WriteLine("Given gold");
+                            }
                             else
                             {
                                 Console.WriteLine("Are you trying to make your own item?");
@@ -282,22 +291,23 @@ namespace ConsoleRPG
             }//end of cheat mode
             else if (input.Contains("attack") || input == "a")
             {
-                if(_player.CurrentLocation.MonsterHere == null)
+                if (_player.CurrentLocation.MonsterHere == null)
                 {
                     Console.WriteLine("Are you trying to attack air? There is nothing there!");
                 }
                 else
                 {
-                    if(_player.CurrentWeapon == null)
+                    if (_player.CurrentWeapon == null)
                     {
                         Console.WriteLine("You can't attack with your bare fists!!!");
                     }
                     else
                     {
-                        _player.UseWeapon(_player.CurrentWeapon);
+                        _player.UseWeapon(_player.CurrentWeapon, _player.CurrentLocation);
                     }
                 }
-            }else if(input.StartsWith("equip "))
+            }
+            else if (input.StartsWith("equip "))
             {
                 _player.UpdateWeapons();
                 string inputWeaponName = input.Substring(6).Trim();
@@ -320,6 +330,33 @@ namespace ConsoleRPG
                     }
                 }
             }
+            else if (input.StartsWith("use "))
+            {
+                string inputName = input.Substring(4).Trim();
+                if (string.IsNullOrEmpty(inputName))
+                {
+                    Console.WriteLine("You can't drink air!");
+                }
+                else
+                {
+                    Inventory thing = _player.Inventorry.SingleOrDefault(x => x.Details.Name.ToLower() == inputName || x.Details.PlName.ToLower() == inputName);
+                    if (thing == null)
+                    {
+                        Console.WriteLine("You can't make a potion up!!");
+                    }
+                    else
+                    {
+                        if (thing.Details.Name == "Monster Spawner" || thing.Details.PlName == "Monster Spawners")
+                        {
+                            GameEngine.UseSpawner(_player, _player.CurrentLocation);
+                        }
+                        else
+                        {
+                            Console.WriteLine("You can't use that!!");
+                        }
+                    }
+                }
+            }
             else if (input.StartsWith("drink "))
             {
                 _player.UpdatePotions();
@@ -336,9 +373,9 @@ namespace ConsoleRPG
                     {
                         Console.WriteLine("You can't make a potion up!!");
                     }
-                    else if(inputItemName == "Healing potion")
+                    else if (inputItemName == "Healing potion")
                     {
-                        if(_player.CurrentHitPoints == _player.MaxHitPoints)
+                        if (_player.CurrentHitPoints == _player.MaxHitPoints)
                         {
                             Console.WriteLine("You already have maximum health!");
                         }
@@ -350,7 +387,7 @@ namespace ConsoleRPG
                             _player.Inventorry.Remove(Potion);
                             _player.Potions.Remove(ItemToUse);
                         }
-                        
+
                     }
                     else
                     {
@@ -358,7 +395,7 @@ namespace ConsoleRPG
                     }
                 }
             }
-            else if(input == "weapons")
+            else if (input == "weapons")
             {
                 _player.UpdateWeapons();
                 Console.WriteLine("List of Weapons");
@@ -367,42 +404,90 @@ namespace ConsoleRPG
                     Console.WriteLine("\t{0}", w.Name);
                 }
             }
-            else if(input == "talk")
+            else if (input == "talk")
             {
+                
                 if (_player.CurrentLocation.QuestAvailable != null)
                 {
-                    Console.WriteLine("would you like to talk about quests?");
+                    
+                    Console.WriteLine("hello {0}, would you like to talk about quests?",_player.Name);
                     String option = Console.ReadLine().Trim().ToLower();
-                    if(option == "y" || option == "yes")
+                    if (option == "y" || option == "yes")
                     {
                         GameEngine.QuestProcessor(_player, _player.CurrentLocation);
-                    }
-                    else if(option == "n" || option == "no")
+                    }//end of quest
+                    else if (option == "n" || option == "no")
                     {
+                        if (_player.CurrentLocation.StoreHere != null)
+                        {
+
+                            Console.WriteLine("Hi {0},would you like to go the the shop?", _player.Name);
+                            String option2 = Console.ReadLine().Trim().ToLower();
+                            if (option2 == "y" || option2 == "yes")
+                            {
+                                GameEngine.Stores(_player, _player.CurrentLocation);
+                            }//end of store
+                            else if (option2 == "n" || option2 == "no")
+                            {
+                                Console.WriteLine("Bye {0}", _player.Name);
+                            }//no goodbye
+                            else
+                            {
+                                Console.WriteLine("Its a yes or no question");
+                            }//end of store question
+                        }//end of no
+                        else
+                        {
+                            Console.WriteLine("Bye {0}", _player.Name);
+                        }//end of talk
+
+
 
                     }
                     else
                     {
                         Console.WriteLine("Its a yes or no question");
                     }
-            
+
                 }
+                else
+                {
+                    if (_player.CurrentLocation.Name == "Town square")
+                    {
+
+                        Console.WriteLine("hi {0},Would you like to go the the shop?",_player.Name);
+                        string option2 = Console.ReadLine().Trim().ToLower();
+                        if (option2 == "y" || option2 == "yes")
+                        {
+                            GameEngine.Stores(_player, _player.CurrentLocation);
+                        }//end of store
+                        else if (option2 == "n" || option2 == "no")
+                        {
+                            Console.WriteLine("Bye {0}",_player.Name);
+                        }//no goodbye
+                        else
+                        {
+                        Console.WriteLine("Its a yes or no question");
+                        }//end of store question
+                    }
+                }
+
             }
             else
             {
                 //anything else
                 Console.WriteLine("What language is that?!");
             }
-            
-            }//end of parse
-        public static void DislayCurrentLocation(Player _player)
-        {
-            Console.WriteLine("\nYou are at {0}", _player.CurrentLocation.Name);
-            if (_player.CurrentLocation.Description != "")
-            {
-                Console.WriteLine("\t{0}\n", _player.CurrentLocation.Description);
-            }
-        }
 
+            }//end of parse
+            public static void DislayCurrentLocation(Player _player)
+            {
+                Console.WriteLine("\nYou are at {0}", _player.CurrentLocation.Name);
+                if (_player.CurrentLocation.Description != "")
+                {
+                    Console.WriteLine("\t{0}\n", _player.CurrentLocation.Description);
+                }
+            }
+
+        }
     } 
-}

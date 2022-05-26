@@ -215,7 +215,7 @@ namespace ConsoleRPG
         }//end of quests
 
         //weapon work
-        public void UseWeapon(Weapon weapon)
+        public void UseWeapon(Weapon weapon, Location location)
         {
 
 
@@ -271,6 +271,8 @@ namespace ConsoleRPG
                 fightMessage += Environment.NewLine;
                 fightMessage += "You defeated the " + _currentMonster.Name + Environment.NewLine;
 
+
+
                 // Give player experience points for killing the monster
                 XPPoints += _currentMonster.RewardXP;
                 fightMessage += "You receive " + _currentMonster.RewardXP.ToString() + " experience points" + Environment.NewLine;
@@ -319,7 +321,11 @@ namespace ConsoleRPG
                     }
                 }
 
-
+                location.MonsterNumber --;
+                if(location.MonsterNumber == 0)
+                {
+                    location.MonsterHere = null;
+                }
 
                 // Add a blank line to the messages box, just for appearance.
                 fightMessage += Environment.NewLine;
@@ -385,5 +391,6 @@ namespace ConsoleRPG
                 }
             }
         }
+
     }//end of class player
 }
