@@ -26,11 +26,11 @@ proposed Changes for v 0.0.5
 v 0.0.5 Completed on 5/20/22 at 11:40
 
 proposed Changes for v 0.0.6
-+ healing with potions
++/ healing with potions?
 + only a certain number of monsters appear
 + talk for quests
-+ shop
-+ Respawn monster statue?
++/ shop?
++/ Respawn monster statue?
 + chance to miss
 + more shortcuts
 + sarcastic ai
@@ -44,3 +44,4 @@ proposed Changes for v 0.0.7
 - unique quest lines
 - bosses
 - more quests and items
+- fix /? things in v6
